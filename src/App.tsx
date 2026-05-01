@@ -62,6 +62,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     siteUrl: 'https://locket.camera',
     xUrl: 'https://x.com/locketcamera',
     badgeUrl: 'https://apps.apple.com/us/story/id1647059807',
+    badgeIconSize: 26,
     appStoreUrl: 'https://apps.apple.com/us/app/locket-widget/id1600525061',
   },
   {
@@ -121,7 +122,7 @@ export default function App() {
               className="appear"
               style={{ '--appear-delay': `${CARD_BASE_DELAY + i * CARD_STAGGER}ms` } as React.CSSProperties}
             >
-              <ProjectCard {...p} />
+              <ProjectCard {...p} baseDelay={CARD_BASE_DELAY + i * CARD_STAGGER} />
             </div>
           ))}
         </div>

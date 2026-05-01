@@ -6,7 +6,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* ─── Design tokens ──────────────────────────────────────────────────────── */
 :root {
-  --font: "Open Runde", sans-serif;
+  --font: "Inter", sans-serif;
   --accent: #ff6600;
 
   /* Light mode (default) */
@@ -18,14 +18,15 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
   --color-text-30:     rgba(0, 0, 0, 0.30);
 
   /* Subtle card overlay — barely visible tint in light mode */
-  --color-card-from:   rgba(0, 0, 0, 0.10);
-  --color-card-to:     rgba(0, 0, 0, 0.05);
+  --color-card-from:   rgba(0, 0, 0, 0.06);
+  --color-card-to:     rgba(0, 0, 0, 0.03);
   --color-card-stroke: rgba(0, 0, 0, 0.10);
+  --color-asset-stroke: rgba(0, 0, 0, 0.05);
 
   /* Very faint dividers / pill backgrounds */
-  --color-surface-sm:  rgba(0, 0, 0, 0.05);
-  --color-surface-md:  rgba(0, 0, 0, 0.10);
-  --color-surface-lg:  rgba(0, 0, 0, 0.16);
+  --color-surface-sm:  rgba(0, 0, 0, 0.04);
+  --color-surface-md:  rgba(0, 0, 0, 0.07);
+  --color-surface-lg:  rgba(0, 0, 0, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,13 +38,26 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
     --color-text-50:     rgba(255, 255, 255, 0.50);
     --color-text-30:     rgba(255, 255, 255, 0.30);
 
-    --color-card-from:   rgba(255, 255, 255, 0.10);
-    --color-card-to:     rgba(255, 255, 255, 0.05);
+    --color-card-from:   rgba(255, 255, 255, 0.11);
+    --color-card-to:     rgba(255, 255, 255, 0.03);
     --color-card-stroke: rgba(255, 255, 255, 0.10);
+    --color-asset-stroke: rgba(255, 255, 255, 0.05);
 
     --color-surface-sm:  rgba(255, 255, 255, 0.05);
     --color-surface-md:  rgba(255, 255, 255, 0.10);
     --color-surface-lg:  rgba(255, 255, 255, 0.16);
+  }
+}
+
+/* ─── Text selection ─────────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(0, 0, 0, 0.10);
+  color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.10);
   }
 }
 
@@ -77,5 +91,16 @@ a {
 
 .appear {
   animation: materialise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--appear-delay, 0ms);
+}
+
+/* ─── Per-frame staggered fade-in (no scale — avoids compounding with card) ── */
+@keyframes frameMaterialise {
+  from { opacity: 0; filter: blur(10px); }
+  to   { opacity: 1; filter: blur(0px); }
+}
+
+.frameAppear {
+  animation: frameMaterialise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--appear-delay, 0ms);
 }
