@@ -1,6 +1,7 @@
 import Hero from './components/Hero'
 import ProjectCard, { type ProjectCardProps, type PhoneSlide } from './components/ProjectCard'
 import Footer from './components/Footer'
+import { blurhashes } from './data/blurhashes'
 import styles from './App.module.css'
 
 import locketLogo from './assets/locket.png'
@@ -21,11 +22,16 @@ function toSlides(
 ): PhoneSlide[] {
   return Object.keys(raw)
     .sort()
-    .map((path) => ({
-      src: raw[path].default,
-      alt: path.split('/').pop()?.replace(/\.\w+$/, '') ?? '',
-      type,
-    }))
+    .map((path) => {
+      const stem   = path.split('/').pop()?.replace(/\.\w+$/, '') ?? ''
+      const folder = path.split('/').slice(-2)[0]
+      return {
+        src:  raw[path].default,
+        alt:  stem,
+        type,
+        hash: blurhashes[`${folder}/${stem}`],
+      }
+    })
 }
 
 const locketSlides    = toSlides(locketRaw, 'video')

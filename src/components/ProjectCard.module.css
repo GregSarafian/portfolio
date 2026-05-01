@@ -38,7 +38,7 @@
   corner-shape: squircle;
   overflow: hidden;
   position: relative;
-  background-color: var(--color-surface-md);
+  /* background removed — phonePlaceholder fills this slot */
 }
 
 .phoneOuter::after {
@@ -49,13 +49,28 @@
   corner-shape: squircle;
   box-shadow: inset 0 0 0 1px var(--color-asset-stroke);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* ─── BlurHash placeholder — sits behind the media ─────────────────────── */
+.phonePlaceholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.phonePlaceholderFill {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-surface-md);
 }
 
 /* ─── Phone inner — the screen ──────────────────────────────────────────── */
 .phoneInner {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   overflow: hidden;
   display: flex;
   align-items: flex-start;
