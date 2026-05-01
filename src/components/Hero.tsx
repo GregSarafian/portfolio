@@ -21,13 +21,13 @@ export default function Hero() {
 
       <div className={`appear ${styles.socials}`} style={{ '--appear-delay': '120ms' } as React.CSSProperties}>
         <a href="https://x.com/GregSarafian" className={styles.iconPill} target="_blank" rel="noopener noreferrer" aria-label="Greg Sarafian on X">
-          <XIcon size={18} />
+          <XIcon size={24} />
         </a>
         <a href="mailto:greg@sarafian.me" className={styles.iconPill} aria-label="Email Greg">
-          <MailIcon size={18} />
+          <MailIcon size={24} />
         </a>
         <a href="tel:2015080659" className={styles.iconPill} aria-label="Call Greg">
-          <LocketDotsIcon size={18} />
+          <LocketDotsIcon size={24} />
         </a>
       </div>
     </section>

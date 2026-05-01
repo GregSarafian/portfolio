@@ -13,19 +13,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   color: var(--color-text-30);
 }
 
 .col svg {
-  margin-bottom: 3px;
+  margin-bottom: 6px;
 }
 
 .line1,
 .line2 {
   font-family: var(--font);
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--color-text-30);
   text-align: center;
   line-height: 1.2;

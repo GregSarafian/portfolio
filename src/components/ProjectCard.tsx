@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { XIcon, AppStoreIcon, AwardIcon, GlobeIcon } from './icons'
 import styles from './ProjectCard.module.css'
 
@@ -19,14 +20,23 @@ export interface ProjectCardProps {
   xUrl?: string
   appStoreUrl?: string
   badgeUrl?: string
+  badgeIconSize?: number
+  /** Base page-load delay (ms) so frame stagger is anchored to the card's own appear time */
+  baseDelay?: number
   /** When set, replaces the entire footer bar with custom content */
   footerContent?: React.ReactNode
 }
 
-function PhoneFrame({ slide }: { slide: PhoneSlide }) {
+const FRAME_STAGGER = 50
+
+function PhoneFrame({ slide, delay }: { slide: PhoneSlide; delay: number }) {
+  const [loaded, setLoaded] = useState(false)
   return (
-    <div className={styles.phoneOuter}>
-      <div className={styles.phoneInner}>
+    <div
+      className={`frameAppear ${styles.phoneOuter}`}
+      style={{ '--appear-delay': `${delay}ms` } as React.CSSProperties}
+    >
+      <div className={styles.phoneInner} style={{ opacity: loaded ? 1 : 0 }}>
         {slide.type === 'video' ? (
           <video
             src={slide.src}
@@ -35,9 +45,15 @@ function PhoneFrame({ slide }: { slide: PhoneSlide }) {
             loop
             muted
             playsInline
+            onLoadedData={() => setLoaded(true)}
           />
         ) : (
-          <img src={slide.src} alt={slide.alt} className={styles.phoneScreenshot} />
+          <img
+            src={slide.src}
+            alt={slide.alt}
+            className={styles.phoneScreenshot}
+            onLoad={() => setLoaded(true)}
+          />
         )}
       </div>
     </div>
@@ -69,6 +85,8 @@ export default function ProjectCard({
   xUrl,
   appStoreUrl,
   badgeUrl,
+  badgeIconSize = 22,
+  baseDelay = 0,
   footerContent,
 }: ProjectCardProps) {
   return (
@@ -79,7 +97,7 @@ export default function ProjectCard({
       ) : slides && slides.length > 0 ? (
         <div className={styles.carousel}>
           {slides.map((slide, i) => (
-            <PhoneFrame key={i} slide={slide} />
+            <PhoneFrame key={i} slide={slide} delay={baseDelay + i * FRAME_STAGGER} />
           ))}
         </div>
       ) : null}
@@ -99,22 +117,22 @@ export default function ProjectCard({
             <div className={styles.buttons}>
               {siteUrl && (
                 <a href={siteUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`${name} website`}>
-                  <GlobeIcon size={16} />
+                  <GlobeIcon size={22} />
                 </a>
               )}
               {xUrl && (
                 <a href={xUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`${name} on X`}>
-                  <XIcon size={16} />
+                  <XIcon size={22} />
                 </a>
               )}
               {badgeUrl && (
                 <a href={badgeUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`${name} App Store feature`}>
-                  <AwardIcon size={16} />
+                  <AwardIcon size={badgeIconSize} />
                 </a>
               )}
               {appStoreUrl && (
                 <a href={appStoreUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`Download ${name} on App Store`}>
-                  <AppStoreIcon size={16} />
+                  <AppStoreIcon size={22} />
                 </a>
               )}
             </div>
