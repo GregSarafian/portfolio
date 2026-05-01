@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { XIcon, AppStoreIcon, AwardIcon, GlobeIcon } from './icons'
+import { BlurhashCanvas } from './BlurhashCanvas'
+import { triggerHaptic } from '../utils/haptics'
 import styles from './ProjectCard.module.css'
 
 export interface PhoneSlide {
   alt: string
   src: string
   type?: 'image' | 'video'
+  hash?: string
 }
 
 export interface ProjectCardProps {
@@ -36,6 +39,14 @@ function PhoneFrame({ slide, delay }: { slide: PhoneSlide; delay: number }) {
       className={`frameAppear ${styles.phoneOuter}`}
       style={{ '--appear-delay': `${delay}ms` } as React.CSSProperties}
     >
+      {/* BlurHash placeholder — always present, sits behind the media */}
+      <div className={styles.phonePlaceholder}>
+        {slide.hash
+          ? <BlurhashCanvas hash={slide.hash} />
+          : <div className={styles.phonePlaceholderFill} />}
+      </div>
+
+      {/* Actual media — fades in once loaded */}
       <div className={styles.phoneInner} style={{ opacity: loaded ? 1 : 0 }}>
         {slide.type === 'video' ? (
           <video
@@ -91,7 +102,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <article className={styles.card} id={id}>
-      {/* ── Media area: carousel or YouTube ─────────────────────────── */}
+      {/* ── Media area ──────────────────────────────────────────────── */}
       {youtubeId ? (
         <YouTubeEmbed youtubeId={youtubeId} />
       ) : slides && slides.length > 0 ? (
@@ -116,22 +127,50 @@ export default function ProjectCard({
 
             <div className={styles.buttons}>
               {siteUrl && (
-                <a href={siteUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`${name} website`}>
+                <a
+                  href={siteUrl}
+                  className={styles.iconBtn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${name} website`}
+                  onPointerDown={triggerHaptic}
+                >
                   <GlobeIcon size={22} />
                 </a>
               )}
               {xUrl && (
-                <a href={xUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`${name} on X`}>
+                <a
+                  href={xUrl}
+                  className={styles.iconBtn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${name} on X`}
+                  onPointerDown={triggerHaptic}
+                >
                   <XIcon size={22} />
                 </a>
               )}
               {badgeUrl && (
-                <a href={badgeUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`${name} App Store feature`}>
+                <a
+                  href={badgeUrl}
+                  className={styles.iconBtn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${name} App Store feature`}
+                  onPointerDown={triggerHaptic}
+                >
                   <AwardIcon size={badgeIconSize} />
                 </a>
               )}
               {appStoreUrl && (
-                <a href={appStoreUrl} className={styles.iconBtn} target="_blank" rel="noopener noreferrer" aria-label={`Download ${name} on App Store`}>
+                <a
+                  href={appStoreUrl}
+                  className={styles.iconBtn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Download ${name} on App Store`}
+                  onPointerDown={triggerHaptic}
+                >
                   <AppStoreIcon size={22} />
                 </a>
               )}
