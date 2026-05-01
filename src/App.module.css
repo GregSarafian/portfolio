@@ -1,0 +1,75 @@
+/* ─── Full-page wrapper ──────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── Centered content column ───────────────────────────────────────────── */
+
+/* Desktop: 1200px wide, 100px top/bottom, 100px sides */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 1200px;
+  padding: 100px 100px;
+}
+
+/* Tablet */
+@media (min-width: 750px) and (max-width: 1199px) {
+  .container {
+    width: 750px;
+    padding: 75px 75px 100px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 749px) {
+  .container {
+    width: 100%;
+    max-width: 390px;
+    padding: 50px 16px;
+  }
+}
+
+/* ─── Projects stack ─────────────────────────────────────────────────────── */
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+}
+
+/* ─── Dive Chat process label (below YouTube card) ──────────────────────── */
+.processText {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0 2px;
+}
+
+.processIcon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding-top: 2px;
+  color: var(--color-text-50);
+}
+
+.processTitle {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.processSub {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-50);
+}

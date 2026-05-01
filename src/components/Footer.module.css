@@ -1,0 +1,44 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 48px;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-text-30);
+}
+
+.col svg {
+  margin-bottom: 3px;
+}
+
+.line1,
+.line2 {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-30);
+  text-align: center;
+  line-height: 1.2;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    gap: 16px;
+  }
+
+  .line1,
+  .line2 {
+    font-size: 11px;
+  }
+}

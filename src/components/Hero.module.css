@@ -1,0 +1,107 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ─── Photo ─────────────────────────────────────────────────────────────── */
+.photoWrap {
+  flex: none;
+}
+
+.photoPlaceholder {
+  width: 125px;
+  height: 125px;
+  border-radius: 1000px;
+  background-color: var(--color-surface-md);
+  overflow: hidden;
+}
+
+.photo {
+  width: 125px;
+  height: 125px;
+  border-radius: 1000px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Text ───────────────────────────────────────────────────────────────── */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.name {
+  font-family: var(--font);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-text);
+  letter-spacing: -0.4px;
+}
+
+.title {
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-text-70);
+  line-height: 1.4;
+}
+
+.titleLink {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+.titleLink::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  right: 50%;
+  height: 1px;
+  background-color: var(--accent);
+  opacity: 0.5;
+  transition: left 0.2s ease, right 0.2s ease;
+}
+
+.titleLink:hover::after {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+/* ─── Social icon pills ──────────────────────────────────────────────────── */
+.socials {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.iconPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 1000px;
+  background-color: var(--color-surface-md);
+  color: var(--color-text);
+  transition: background-color 0.15s;
+  flex: none;
+}
+
+.iconPill:hover {
+  background-color: var(--color-surface-lg);
+}
