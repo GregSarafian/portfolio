@@ -5,6 +5,42 @@ h1, h2, h3, h4, h5, h6, p, figure { margin: 0; }
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 /* ─── Design tokens ──────────────────────────────────────────────────────── */
+/* ─── Corner radius tokens (Chrome / circular defaults) ─────────────────── */
+:root {
+  --r-card-t:    50px;
+  --r-card-b:    26px;
+  --r-phone:     34px;
+  --r-youtube:   0px;
+  --r-logo:      0px;
+  /* tablet (750–1199px) */
+  --r-card-t-md: 40px;
+  --r-card-b-md: 26px;
+  --r-phone-md:  22px;
+  /* mobile (≤749px) */
+  --r-card-t-sm: 35px;
+  --r-card-b-sm: 35px;
+  --r-phone-sm:  24px;
+}
+
+@supports (corner-shape: squircle) {
+  :root {
+    --r-card-t:    47px;
+    --r-card-b:    26px;
+    --r-phone:     32px;
+    --r-youtube:   23px;
+    --r-logo:      0px;
+    /* tablet (750–1199px) */
+    --r-card-t-md: 44px;
+    --r-card-b-md: 26px;
+    --r-phone-md:  26px;
+    /* mobile (≤749px) */
+    --r-card-t-sm: 37px;
+    --r-card-b-sm: 36px;
+    --r-phone-sm:  22px;
+  }
+}
+
+
 :root {
   --font: "Inter", sans-serif;
   --accent: #ff6600;
@@ -73,6 +109,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+img, video {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* ─── Page-load materialise animation ───────────────────────────────────── */

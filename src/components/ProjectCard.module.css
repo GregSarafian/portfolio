@@ -1,8 +1,8 @@
 /* ─── Card shell ─────────────────────────────────────────────────────────── */
 .card {
   width: 100%;
-  border-radius: 48px 48px 24px 24px;
-  corner-shape: squircle;
+  border-radius: var(--r-card-t) var(--r-card-t) var(--r-card-b) var(--r-card-b);
+
   background: var(--color-card-from);
   display: flex;
   flex-direction: column;
@@ -34,23 +34,13 @@
   flex: none;
   width: 270px;
   height: 100%;
-  border-radius: 36px;
-  corner-shape: squircle;
+  border-radius: var(--r-phone);
+
   overflow: hidden;
   position: relative;
   /* background removed — phonePlaceholder fills this slot */
 }
 
-.phoneOuter::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  corner-shape: squircle;
-  box-shadow: inset 0 0 0 1px var(--color-asset-stroke);
-  pointer-events: none;
-  z-index: 2;
-}
 
 /* ─── BlurHash placeholder — sits behind the media ─────────────────────── */
 .phonePlaceholder {
@@ -80,8 +70,9 @@
 
 .phoneScreenshot {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
   display: block;
 }
 
@@ -97,8 +88,8 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background-color: #000;
-  border-radius: 32px 32px 0 0;
-  corner-shape: squircle;
+  border-radius: var(--r-youtube) var(--r-youtube) 0 0;
+
   overflow: hidden;
 }
 
@@ -136,10 +127,8 @@
   flex: none;
   width: 48px;
   height: 48px;
-  border-radius: 12px;
-  corner-shape: squircle;
+  border-radius: var(--r-logo);
   overflow: hidden;
-  background-color: var(--color-surface-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +208,7 @@
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 749px) {
   .card {
-    border-radius: 40px 40px 32px 32px;
+    border-radius: var(--r-card-t-sm) var(--r-card-t-sm) var(--r-card-b-sm) var(--r-card-b-sm);
   }
 
   .carousel {
@@ -229,9 +218,8 @@
   }
 
   .phoneOuter {
-    width: calc(270px * (400 / 600));
-    border-radius: 26px;
-    corner-shape: squircle;
+    width: calc(270px * (388 / 584));
+    border-radius: var(--r-phone-sm);
   }
 
   .footer {
@@ -254,7 +242,7 @@
 
 @media (min-width: 750px) and (max-width: 1199px) {
   .card {
-    border-radius: 40px 40px 32px 32px;
+    border-radius: var(--r-card-t-md) var(--r-card-t-md) var(--r-card-b-md) var(--r-card-b-md);
   }
 
   .carousel {
@@ -262,6 +250,8 @@
   }
 
   .phoneOuter {
-    width: calc(270px * (450 / 600));
+    width: calc(270px * (434 / 584));
+    border-radius: var(--r-phone-md);
   }
 }
+

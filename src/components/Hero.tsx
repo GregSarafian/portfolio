@@ -1,13 +1,21 @@
+import { useState } from 'react'
 import profilePhoto from '../assets/profile.jpg'
 import { XIcon, MailIcon, LocketDotsIcon } from './icons'
 import { triggerHaptic } from '../utils/haptics'
 import styles from './Hero.module.css'
 
 export default function Hero() {
+  const [photoLoaded, setPhotoLoaded] = useState(false)
   return (
     <section className={styles.hero}>
       <div className={`appear ${styles.photoWrap}`} style={{ '--appear-delay': '0ms' } as React.CSSProperties}>
-        <img src={profilePhoto} alt="Greg Sarafian" className={styles.photo} />
+        <img
+          src={profilePhoto}
+          alt="Greg Sarafian"
+          className={styles.photo}
+          onLoad={() => setPhotoLoaded(true)}
+          style={{ opacity: photoLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
+        />
       </div>
 
       <div className={`appear ${styles.intro}`} style={{ '--appear-delay': '60ms' } as React.CSSProperties}>

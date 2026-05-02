@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import Hero from './components/Hero'
 import ProjectCard, { type ProjectCardProps, type PhoneSlide } from './components/ProjectCard'
 import Footer from './components/Footer'
+import { BlurhashCanvas } from './components/BlurhashCanvas'
 import { blurhashes } from './data/blurhashes'
 import styles from './App.module.css'
 
@@ -40,8 +42,25 @@ const doordashSlides  = toSlides(doordashRaw, 'image')
 const diveChatSlides  = toSlides(diveChatRaw, 'image')
 
 /* ─── App icon helper ───────────────────────────────────────────────────── */
-function AppIcon({ src, alt }: { src: string; alt: string }) {
-  return <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+function AppIcon({ src, alt, hash }: { src: string; alt: string; hash?: string }) {
+  const [loaded, setLoaded] = useState(false)
+  const [shown, setShown] = useState(false)
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      {!shown && (
+        <div style={{ position: 'absolute', inset: 0, opacity: loaded ? 0 : 1, transition: 'opacity 0.3s ease' }}>
+          {hash ? <BlurhashCanvas hash={hash} /> : <div style={{ width: '100%', height: '100%', background: 'var(--color-surface-md)' }} />}
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        onTransitionEnd={() => { if (loaded) setShown(true) }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
+      />
+    </div>
+  )
 }
 
 /* ─── Dive Chat process label (shown below the YouTube embed) ───────────── */
@@ -63,7 +82,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     id: 'locket',
     name: 'Locket',
     tagline: 'Live pics from best friends',
-    logo: <AppIcon src={locketLogo} alt="Locket" />,
+    logo: <AppIcon src={locketLogo} alt="Locket" hash={blurhashes['locket']} />,
     slides: locketSlides,
     siteUrl: 'https://locket.camera',
     xUrl: 'https://x.com/locketcamera',
@@ -76,7 +95,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     id: 'fetii',
     name: 'Fetii',
     tagline: 'On-demand group ridesharing',
-    logo: <AppIcon src={fetiiLogo} alt="Fetii" />,
+    logo: <AppIcon src={fetiiLogo} alt="Fetii" hash={blurhashes['fetii']} />,
     slides: fetiiSlides,
     siteUrl: 'https://fetii.com',
     xUrl: 'https://x.com/fetiiride',
@@ -87,7 +106,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     id: 'doordash',
     name: 'DoorDash',
     tagline: 'Delivery, take out, and dining',
-    logo: <AppIcon src={doordashLogo} alt="DoorDash" />,
+    logo: <AppIcon src={doordashLogo} alt="DoorDash" hash={blurhashes['doordash']} />,
     slides: doordashSlides,
     siteUrl: 'https://doordash.com',
     xUrl: 'https://x.com/doordash',
@@ -98,7 +117,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     id: 'dive-chat',
     name: 'Dive Chat',
     tagline: 'Make Moments Happen',
-    logo: <AppIcon src={diveChatLogo} alt="Dive Chat" />,
+    logo: <AppIcon src={diveChatLogo} alt="Dive Chat" hash={blurhashes['dive-chat']} />,
     slides: diveChatSlides,
   },
   {
@@ -106,7 +125,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     id: 'dive-chat-extra',
     name: 'Dive Chat',
     tagline: 'Make Moments Happen',
-    logo: <AppIcon src={diveChatLogo} alt="Dive Chat" />,
+    logo: <AppIcon src={diveChatLogo} alt="Dive Chat" hash={blurhashes['dive-chat']} />,
     youtubeId: '3ol4-0a7ifk',
     footerContent: <DiveChatLabel />,
   },
