@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.col}>
         <CopyrightIcon size={20} />
-        <p className={styles.line1}>Copyright 2025</p>
+        <p className={styles.line1}>Copyright {new Date().getFullYear()}</p>
         <p className={styles.line2}>All Rights Reserved.</p>
       </div>
 

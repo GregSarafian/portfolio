@@ -3,6 +3,10 @@
 //   node scripts/generate-blurhashes.cjs
 
 export const blurhashes: Record<string, string> = {
+"locket":     "LCQ7y#oe?Dox}kf*Wqfk?9fj07af",
+  "fetii":      "LKFg$Aj]D$t6;roeW,f701fPx+WB",
+  "doordash":   "LOSOzGt,B:VEi^aKkCkXHWVX8wpI",
+  "dive-chat":  "L6QrbWtG00nVU-L^t^u300Vx4Sa{",
   "locket/01-friendcircle": "L15}BMtR02VsK8NeIprpTKog~ARi",
   "locket/02-liveactivity": "LNN[{d?]kXRQIp~BJVxY00nQxuNH",
   "locket/03-share": "L3BpFP_1001I8=i{-nVM00Iu~q?P",

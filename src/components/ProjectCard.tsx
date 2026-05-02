@@ -34,20 +34,30 @@ const FRAME_STAGGER = 50
 
 function PhoneFrame({ slide, delay }: { slide: PhoneSlide; delay: number }) {
   const [loaded, setLoaded] = useState(false)
+  const [shown, setShown] = useState(false)
   return (
     <div
       className={`frameAppear ${styles.phoneOuter}`}
       style={{ '--appear-delay': `${delay}ms` } as React.CSSProperties}
     >
-      {/* BlurHash placeholder — always present, sits behind the media */}
-      <div className={styles.phonePlaceholder}>
-        {slide.hash
-          ? <BlurhashCanvas hash={slide.hash} />
-          : <div className={styles.phonePlaceholderFill} />}
-      </div>
+      {/* Placeholder — unmounts after media has fully faded in */}
+      {!shown && (
+        <div
+          className={styles.phonePlaceholder}
+          style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.4s ease' }}
+        >
+          {slide.hash
+            ? <BlurhashCanvas hash={slide.hash} />
+            : <div className={styles.phonePlaceholderFill} />}
+        </div>
+      )}
 
       {/* Actual media — fades in once loaded */}
-      <div className={styles.phoneInner} style={{ opacity: loaded ? 1 : 0 }}>
+      <div
+        className={styles.phoneInner}
+        style={{ opacity: loaded ? 1 : 0 }}
+        onTransitionEnd={() => { if (loaded) setShown(true) }}
+      >
         {slide.type === 'video' ? (
           <video
             src={slide.src}
@@ -76,7 +86,7 @@ function YouTubeEmbed({ youtubeId }: { youtubeId: string }) {
     <div className={styles.youtubeWrap}>
       <iframe
         className={styles.youtubeFrame}
-        src={`https://www.youtube.com/embed/${youtubeId}?iv_load_policy=3&rel=0&modestbranding=1&playsinline=1`}
+        src={`https://www.youtube-nocookie.com/embed/${youtubeId}?iv_load_policy=3&rel=0&modestbranding=1&playsinline=1`}
         title="YouTube video"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
