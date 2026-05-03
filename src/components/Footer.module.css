@@ -32,6 +32,13 @@
   margin: 0;
 }
 
+@media (min-width: 601px) {
+  .line1,
+  .line2 {
+    white-space: nowrap;
+  }
+}
+
 @media (max-width: 600px) {
   .footer {
     gap: 16px;

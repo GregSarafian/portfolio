@@ -29,16 +29,19 @@
   display: none;
 }
 
-/* ─── Phone frame — borderless, rounded all sides ───────────────────────── */
+/* ─── Phone frame — mask-clipped ────────────────────────────────────────── */
 .phoneOuter {
   flex: none;
   width: 270px;
   height: 100%;
-  border-radius: var(--r-phone);
-
+  -webkit-mask-image: url('/mask.png');
+  mask-image: url('/mask.png');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   overflow: hidden;
   position: relative;
-  /* background removed — phonePlaceholder fills this slot */
 }
 
 
@@ -219,7 +222,6 @@
 
   .phoneOuter {
     width: calc(270px * (388 / 584));
-    border-radius: var(--r-phone-sm);
   }
 
   .footer {
@@ -251,7 +253,6 @@
 
   .phoneOuter {
     width: calc(270px * (434 / 584));
-    border-radius: var(--r-phone-md);
   }
 }
 
