@@ -21,7 +21,7 @@ export default function Hero() {
       <div className={`appear ${styles.intro}`} style={{ '--appear-delay': '60ms' } as React.CSSProperties}>
         <h1 className={styles.name}>Greg Sarafian</h1>
         <p className={styles.title}>
-          Design Lead at{' '}
+          Head of Design at{' '}
           <a
             href="https://locket.camera"
             className={styles.titleLink}
