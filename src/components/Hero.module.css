@@ -111,6 +111,7 @@
 
 .iconPill:hover {
   background-color: var(--color-surface-lg);
+  transform: scale(1.08);
 }
 
 .iconPill:active {
