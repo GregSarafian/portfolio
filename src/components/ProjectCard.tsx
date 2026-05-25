@@ -1,8 +1,20 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useSmoothCorners } from '@lisse/react'
 import { XIcon, AppStoreIcon, AwardIcon, GlobeIcon } from './icons'
 import { BlurhashCanvas } from './BlurhashCanvas'
 import { triggerHaptic } from '../utils/haptics'
+import { useBreakpoint, type Breakpoint } from '../utils/useBreakpoint'
 import styles from './ProjectCard.module.css'
+
+/* Figma-squircle corner radii per breakpoint (top corners larger than bottom),
+   mirroring the border-radius fallback tokens in index.css. */
+const CARD_RADII: Record<Breakpoint, { top: number; bottom: number }> = {
+  lg: { top: 47, bottom: 26 },
+  md: { top: 44, bottom: 26 },
+  sm: { top: 37, bottom: 36 },
+}
+
+const CARD_SMOOTHING = 0.6
 
 export interface PhoneSlide {
   alt: string
@@ -110,8 +122,21 @@ export default function ProjectCard({
   baseDelay = 0,
   footerContent,
 }: ProjectCardProps) {
+  const cardRef = useRef<HTMLElement>(null)
+  const { top, bottom } = CARD_RADII[useBreakpoint()]
+  useSmoothCorners(
+    cardRef,
+    {
+      topLeft: { radius: top, smoothing: CARD_SMOOTHING },
+      topRight: { radius: top, smoothing: CARD_SMOOTHING },
+      bottomRight: { radius: bottom, smoothing: CARD_SMOOTHING },
+      bottomLeft: { radius: bottom, smoothing: CARD_SMOOTHING },
+    },
+    { autoEffects: false },
+  )
+
   return (
-    <article className={styles.card} id={id}>
+    <article ref={cardRef} className={styles.card} id={id}>
       {/* ── Media area ──────────────────────────────────────────────── */}
       {youtubeId ? (
         <YouTubeEmbed youtubeId={youtubeId} />

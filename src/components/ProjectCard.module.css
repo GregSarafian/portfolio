@@ -196,6 +196,7 @@
 
 .iconBtn:hover {
   background-color: var(--color-surface-md);
+  transform: scale(1.08);
 }
 
 .iconBtn:active {
