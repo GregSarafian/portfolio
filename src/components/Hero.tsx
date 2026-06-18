@@ -53,6 +53,7 @@ export default function Hero() {
         >
           <MailIcon size={24} />
         </a>
+        {/* ponytail: call button hidden for now, keep for future
         <a
           href="tel:2015080659"
           className={styles.iconPill}
@@ -61,6 +62,7 @@ export default function Hero() {
         >
           <LocketDotsIcon size={24} />
         </a>
+        */}
       </div>
     </section>
   )
