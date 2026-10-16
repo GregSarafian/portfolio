@@ -23,7 +23,7 @@ export default function Hero() {
         <p className={styles.title}>
           Head of Design at{' '}
           <a
-            href="https://locket.camera"
+            href="https://locket.com"
             className={styles.titleLink}
             target="_blank"
             rel="noopener noreferrer"

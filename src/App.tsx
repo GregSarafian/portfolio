@@ -55,6 +55,8 @@ function AppIcon({ src, alt, hash }: { src: string; alt: string; hash?: string }
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         onLoad={() => setLoaded(true)}
         onTransitionEnd={() => { if (loaded) setShown(true) }}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
@@ -84,7 +86,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     tagline: 'Live pics from best friends',
     logo: <AppIcon src={locketLogo} alt="Locket" hash={blurhashes['locket']} />,
     slides: locketSlides,
-    siteUrl: 'https://locket.camera',
+    siteUrl: 'https://locket.com',
     xUrl: 'https://x.com/locketcamera',
     badgeUrl: 'https://apps.apple.com/us/story/id1647059807',
     badgeIconSize: 26,
@@ -120,6 +122,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     logo: <AppIcon src={diveChatLogo} alt="Dive Chat" hash={blurhashes['dive-chat']} />,
     slides: diveChatSlides,
   },
+  /* ponytail: YouTube video card hidden for now, keep for future
   {
     key: 'dive-chat-extra',
     id: 'dive-chat-extra',
@@ -129,6 +132,7 @@ const projects: (ProjectCardProps & { key: string })[] = [
     youtubeId: '3ol4-0a7ifk',
     footerContent: <DiveChatLabel />,
   },
+  */
 ]
 
 /* ─── App ───────────────────────────────────────────────────────────────── */
