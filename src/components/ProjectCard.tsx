@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSmoothCorners } from '@lisse/react'
 import { XIcon, AppStoreIcon, AwardIcon, GlobeIcon } from './icons'
 import { BlurhashCanvas } from './BlurhashCanvas'
@@ -47,8 +47,32 @@ const FRAME_STAGGER = 50
 function PhoneFrame({ slide, delay }: { slide: PhoneSlide; delay: number }) {
   const [loaded, setLoaded] = useState(false)
   const [shown, setShown] = useState(false)
+  // ponytail: only fetch/decode media once the frame nears the viewport.
+  // Images use native loading="lazy"; videos can't, so gate their src here.
+  const outerRef = useRef<HTMLDivElement>(null)
+  const isVideo = slide.type === 'video'
+  const [inView, setInView] = useState(!isVideo)
+
+  useEffect(() => {
+    if (!isVideo || inView) return
+    const el = outerRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setInView(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '200px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [isVideo, inView])
+
   return (
     <div
+      ref={outerRef}
       className={`frameAppear ${styles.phoneOuter}`}
       style={{ '--appear-delay': `${delay}ms` } as React.CSSProperties}
     >
@@ -70,14 +94,15 @@ function PhoneFrame({ slide, delay }: { slide: PhoneSlide; delay: number }) {
         style={{ opacity: loaded ? 1 : 0 }}
         onTransitionEnd={() => { if (loaded) setShown(true) }}
       >
-        {slide.type === 'video' ? (
+        {isVideo ? (
           <video
-            src={slide.src}
+            src={inView ? slide.src : undefined}
             className={styles.phoneScreenshot}
             autoPlay
             loop
             muted
             playsInline
+            preload="none"
             onLoadedData={() => setLoaded(true)}
           />
         ) : (
@@ -85,6 +110,8 @@ function PhoneFrame({ slide, delay }: { slide: PhoneSlide; delay: number }) {
             src={slide.src}
             alt={slide.alt}
             className={styles.phoneScreenshot}
+            loading="lazy"
+            decoding="async"
             onLoad={() => setLoaded(true)}
           />
         )}
@@ -100,6 +127,7 @@ function YouTubeEmbed({ youtubeId }: { youtubeId: string }) {
         className={styles.youtubeFrame}
         src={`https://www.youtube-nocookie.com/embed/${youtubeId}?iv_load_policy=3&rel=0&modestbranding=1&playsinline=1`}
         title="YouTube video"
+        loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
